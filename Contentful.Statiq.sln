@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30320.27
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contentful.Statiq", "src\Contentful.Statiq\Contentful.Statiq.csproj", "{B8B6E3FF-E8BC-4619-AE5E-82EBA3E5525C}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contentful.Statiq.Tests", "tests\Contentful.Statiq.Tests\Contentful.Statiq.Tests.csproj", "{E78CE173-6705-42ED-8E07-2BAC92BA65F9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{C3891A8C-3610-4866-8C8B-BAE25CB6C6F8}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B8B6E3FF-E8BC-4619-AE5E-82EBA3E5525C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B8B6E3FF-E8BC-4619-AE5E-82EBA3E5525C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B8B6E3FF-E8BC-4619-AE5E-82EBA3E5525C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B8B6E3FF-E8BC-4619-AE5E-82EBA3E5525C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E78CE173-6705-42ED-8E07-2BAC92BA65F9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E78CE173-6705-42ED-8E07-2BAC92BA65F9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E78CE173-6705-42ED-8E07-2BAC92BA65F9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E78CE173-6705-42ED-8E07-2BAC92BA65F9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {1DF37A8D-03C0-4757-9134-E9994246FFC7}
+	EndGlobalSection
+EndGlobal
