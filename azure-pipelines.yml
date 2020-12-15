@@ -38,20 +38,26 @@ steps:
     projects: 'tests/**/*.csproj'''
     arguments: '--configuration $(buildConfiguration) --collect "Code coverage"'
 
-- task: DotNetCoreCLI@2
-  displayName: 'Pack NuGet'
+- task: PublishBuildArtifacts@1
   inputs:
-    command: 'pack'
-    packagesToPack: '**/*.csproj'
-    nobuild: true
-    includesymbols: true
-    includesource: true
-    versioningScheme: 'off'
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'Contentful.Statiq artifacts'
+    publishLocation: 'Container'
 
-- task: NuGetCommand@2
-  displayName: 'Push to NuGet feed'
-  inputs:
-    command: 'push'
-    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
-    nuGetFeedType: 'external'
-    publishFeedCredentials: 'Contentful.Statiq NuGet.org Feed'
+# - task: DotNetCoreCLI@2
+#   displayName: 'Pack NuGet'
+#   inputs:
+#     command: 'pack'
+#     packagesToPack: '**/*.csproj'
+#     nobuild: true
+#     includesymbols: true
+#     includesource: true
+#     versioningScheme: 'off'
+
+# - task: NuGetCommand@2
+#   displayName: 'Push to NuGet feed'
+#   inputs:
+#     command: 'push'
+#     packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
+#     nuGetFeedType: 'external'
+#     publishFeedCredentials: 'Contentful.Statiq NuGet.org Feed'
