@@ -1,5 +1,4 @@
 ﻿using Contentful.Core;
-using Contentful.Core.Models;
 using Contentful.Core.Search;
 using Statiq.Common;
 using System;
@@ -22,7 +21,7 @@ namespace Contentful.Statiq
         private readonly IContentfulClient _client;
         private readonly string _contentTypeId;
 
-        internal Action<QueryBuilder<TContentModel>> ConfigureQueryBuilder { get; set; } = (_ => { });
+        internal Action<QueryBuilder<TContentModel>> ConfigureQueryBuilder { get; set; } = _ => { };
 
         /// <summary>
         /// Create a new instance of the Contentful module for Statiq using an existing Contentful client.
@@ -43,9 +42,12 @@ namespace Contentful.Statiq
             ConfigureQueryBuilder?.Invoke(qb);
 
             var items = await _client.GetEntriesByType(_contentTypeId, qb);
-            var documentTasks = items.Items.Select(item => ContentfulDocumentHelpers.CreateDocument(context, item, GetContent)).ToArray();
+            var documents = items.Items
+                .OfType<TContentModel>()
+                .Select(item => ContentfulDocumentHelpers.CreateDocument(context, item, GetContent))
+                .ToArray();
 
-            return await Task.WhenAll(documentTasks);
+            return documents;
         }
     }
 }

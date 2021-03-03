@@ -4,7 +4,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
-using System.Threading.Tasks;
 
 namespace Contentful.Statiq
 {
@@ -21,7 +20,7 @@ namespace Contentful.Statiq
             }
         }
 
-        internal static async Task<IDocument> CreateDocument<TContentModel>(IExecutionContext context, TContentModel item, Func<TContentModel, string> getContent) where TContentModel : class
+        internal static IDocument CreateDocument<TContentModel>(IExecutionContext context, TContentModel item, Func<TContentModel, string> getContent) where TContentModel : class
         {
             var props = typeof(TContentModel)
                 .GetProperties(BindingFlags.Instance
@@ -29,12 +28,13 @@ namespace Contentful.Statiq
                     | BindingFlags.GetProperty
                     | BindingFlags.Public);
 
-            var content = getContent?.Invoke(item) ?? string.Empty;
+            var content = getContent?.Invoke(item);
 
-            return await CreateDocumentInternal(context, item, props, content).ConfigureAwait(false);
+            var doc = CreateDocumentInternal(context, item, props, content);
+            return doc;
         }
 
-        internal static Task<IDocument> CreateDocumentInternal(IExecutionContext context, object item, IEnumerable<PropertyInfo> props, string content)
+        internal static IDocument CreateDocumentInternal(IExecutionContext context, object item, IEnumerable<PropertyInfo> props, string content)
         {
             var metadata = new List<KeyValuePair<string, object>>
             {
@@ -43,7 +43,7 @@ namespace Contentful.Statiq
 
             AddSystemProperties(item, props, metadata);
 
-            return context.CreateDocumentAsync(metadata, content, null);
+            return context.CreateDocument(metadata, content, null);
         }
 
         /// <summary>
