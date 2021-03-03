@@ -1,9 +1,9 @@
 # Contentful.Statiq
-[Statiq](https://Statiq.dev) module to retrieve content from the [Contentful API](https://www.contentful.com/) to be used by as part of a Statiq pipeline.
+[Statiq](https://Statiq.dev) module to retrieve content from the [Contentful API](https://www.contentful.com/) to be used as part of a Statiq pipeline.
 
 ## Installation
 ### Add the package
-You can add the nuget package to your project:
+You can add the NuGet package to your project:
 - Using the package console:
 ```
 Install-Package Contentful.Statiq
