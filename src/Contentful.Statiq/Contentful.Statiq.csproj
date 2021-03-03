@@ -1,7 +1,6 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Worker">
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
-    <Version>1.0.0-alpha.1</Version>
     <Authors>Diego Rodríguez</Authors>
     <Description>Unofficial Contentful module for Statiq. Fetch content and assets from Contentful CMS.</Description>
     <Copyright>Diego Rodríguez 2020</Copyright>
