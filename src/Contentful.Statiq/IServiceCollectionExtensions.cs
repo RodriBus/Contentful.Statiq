@@ -34,6 +34,18 @@ namespace Contentful.Statiq
         /// <returns>The IServiceCollection.</returns>
         public static IServiceCollection AddContentful(this IServiceCollection services, IConfiguration configuration)
         {
+            return AddContentful(services, (IConfiguration) configuration, null);
+        }
+
+        /// <summary>
+        /// Adds Contentful services to the IServiceCollection.
+        /// </summary>
+        /// <param name="services">The IServiceCollection.</param>
+        /// <param name="configuration">The IConfiguration used to retrieve configuration from.</param>
+        /// <param name="contentTypeResolver">A content type resolver instance for the client to use.</param>
+        /// <returns>The IServiceCollection.</returns>
+        public static IServiceCollection AddContentful(this IServiceCollection services, IConfiguration configuration, IContentTypeResolver contentTypeResolver)
+        {
             services.Configure<ContentfulOptions>(configuration.GetSection("ContentfulOptions"));
             services.AddHttpClient(HttpClientName);
             services.TryAddTransient<IContentfulClient>((sp) =>
@@ -41,7 +53,10 @@ namespace Contentful.Statiq
                 var options = sp.GetService<IOptions<ContentfulOptions>>()?.Value;
                 var factory = sp.GetService<IHttpClientFactory>();
                 var httpClient = factory?.CreateClient(HttpClientName);
-                return new ContentfulClient(httpClient, options);
+                return new ContentfulClient(httpClient, options)
+                {
+                    ContentTypeResolver = contentTypeResolver
+                };
             });
 
             return services;
