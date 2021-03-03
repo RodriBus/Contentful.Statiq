@@ -1,9 +1,9 @@
 # Contentful.Statiq
-Module to retrieve content from the [Contentful API](https://www.contentful.com/) for building static websites with [Statiq](https://Statiq.dev).
+[Statiq](https://Statiq.dev) module to retrieve content from the [Contentful API](https://www.contentful.com/) to be used by as part of a Statiq pipeline.
 
 ## Installation
 ### Add the package
-Add the nuget package:
+You can add the nuget package to your project:
 - Using the package console:
 ```
 Install-Package Contentful.Statiq
@@ -15,7 +15,7 @@ dotnet add package Contentful.Statiq
 - Or search for Contentful.Statiq through the NuGet Package Manager in Visual Studio.
 
 ### (Optional) Generate your content type models
-If you want to auto-generate classes representing your Contentful space Content-Type definitions, you may want to check out the Contentful [dotnet-models-creator-cli](https://github.com/contentful/dotnet-models-creator-cli).
+If you want to auto-generate classes representing your Contentful space Content-Type definitions, you may want to check out the [RodriBus/Contentful.ModelGenerator.Cli](https://github.com/RodriBus/Contentful.ModelGenerator.Cli) project or the [Contentful/dotnet-models-creator-cli](https://github.com/contentful/dotnet-models-creator-cli) project.
 
 ## Usage
 With the package installed you can now use the Contentful module in a Statiq pipeline to retrieve some content.
@@ -37,7 +37,7 @@ public class BlogPost
 }
 ```
 
-### (Optional) Add a Contentful API Client
+#### (Optional) Add a Contentful API Client
 If you don't have one already, you can configure a new `IContentfulClient` into the DI container:
 ```csharp
 using Contentful.Statiq;
@@ -69,6 +69,25 @@ You will need to add to your [configuration file](https://statiq.dev/framework/c
 }
 ```
 You can get more details about this configuration at the [Contentful.Net](https://github.com/contentful/contentful.net) repository
+
+Also, you may want to define a [content type resolver](https://www.contentful.com/developers/docs/net/tutorials/using-net-cda-sdk/#get-entries-of-multiple-types-or-by-interface) for the client. To do so you may add one to the services configuration like this:
+```csharp
+using Contentful.Statiq;
+using Microsoft.Extensions.Configuration;
+
+public class Program
+{
+    public static async Task<int> Main(string[] args) =>
+        await Bootstrapper
+        .Factory
+        .CreateDefault(args)
+        .ConfigureServices((services, settings) => {
+            services.AddContentful((IConfiguration) settings, new MyEntityResolver());
+        })
+        .AddPipelines()
+        .RunAsync();
+}
+```
 
 ### Use the module in a pipeline
 Finally, add the module as an input module in a pipeline.
@@ -134,3 +153,17 @@ InputModules = new ModuleList
 };
 ...
 ```
+
+## Versioning
+We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/RodriBus/Contentful.Statiq/tags). 
+
+## Authors
+* **Diego Rodríguez** - *Initial work* - [RodriBus](https://github.com/RodriBus)
+
+See also the list of [contributors](https://github.com/RodriBus/Contentful.Statiq/contributors) who participated in this project.
+
+## License
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+
+## Acknowledgments
+This project is **heavily** inspired by the [Kontent.Statiq](https://github.com/alanta/Kontent.Statiq) and [Contentful.Wyam](https://github.com/contentful/contentful.wyam) libraries.
